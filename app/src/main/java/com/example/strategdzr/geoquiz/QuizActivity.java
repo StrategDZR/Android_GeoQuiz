@@ -24,6 +24,7 @@ public class QuizActivity extends AppCompatActivity {
     };
     private int mCurrentIndex = 0;
     private static final String TAG = "QuizActivity";
+    private static final String KEY_INDEX = "index";
 
     private void checkAnswer(boolean userPressedTrue) { //show toast about correct or incorrect answer
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
@@ -41,7 +42,7 @@ public class QuizActivity extends AppCompatActivity {
             mQuestionTextView.setText(question);
         } catch (ArrayIndexOutOfBoundsException e) { //when try tap on PrevButton on first question
             e.printStackTrace();
-            Toast.makeText(this, "No questions before!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No questions before!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -91,6 +92,10 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
+
         update_question();
     }
 
@@ -122,5 +127,12 @@ public class QuizActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
     }
 }
