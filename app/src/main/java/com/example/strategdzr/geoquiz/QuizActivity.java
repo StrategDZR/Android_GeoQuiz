@@ -1,9 +1,10 @@
 package com.example.strategdzr.geoquiz;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,8 +13,8 @@ public class QuizActivity extends AppCompatActivity {
     private TextView mQuestionTextView; //create fields
     private Button mTrueButton;
     private Button mFalseButton;
-    private Button mNextButton;
-    private Button mPrevButton;
+    private ImageButton mNextButton;
+    private ImageButton mPrevButton;
     private Question[] mQuestionBank = new Question[]{
             new Question(R.string.q_oceans, true),
             new Question(R.string.q_mideast, false),
@@ -50,8 +51,8 @@ public class QuizActivity extends AppCompatActivity {
 
         mTrueButton = (Button) findViewById(R.id.true_button); //init and find objects
         mFalseButton = (Button) findViewById(R.id.false_button);
-        mNextButton = (Button) findViewById(R.id.next_button);
-        mPrevButton = (Button) findViewById(R.id.prev_button);
+        mNextButton = (ImageButton) findViewById(R.id.next_button);
+        mPrevButton = (ImageButton) findViewById(R.id.prev_button);
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
 
         mTrueButton.setOnClickListener(new View.OnClickListener() { //set listeners
