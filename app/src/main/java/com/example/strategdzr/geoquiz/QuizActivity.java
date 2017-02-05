@@ -25,6 +25,7 @@ public class QuizActivity extends AppCompatActivity {
     private int mCurrentIndex = 0;
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
+    private Button mCheatButton;
 
     private void checkAnswer(boolean userPressedTrue) { //show toast about correct or incorrect answer
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
@@ -57,6 +58,7 @@ public class QuizActivity extends AppCompatActivity {
         mNextButton = (Button) findViewById(R.id.next_button);
         mPrevButton = (Button) findViewById(R.id.prev_button);
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
+        mCheatButton = (Button) findViewById(R.id.cheat_button);
 
         mTrueButton.setOnClickListener(new View.OnClickListener() { //set listeners
             @Override
@@ -89,6 +91,12 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 update_question();
+            }
+        });
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //start CheatActivity
             }
         });
 
