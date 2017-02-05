@@ -1,5 +1,7 @@
 package com.example.strategdzr.geoquiz;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,15 +28,23 @@ public class QuizActivity extends AppCompatActivity {
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
     private Button mCheatButton;
+    private static final int REQUEST_CODE_CHEAT = 0;
+    private boolean mIsCheater;
 
     private void checkAnswer(boolean userPressedTrue) { //show toast about correct or incorrect answer
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
         int messageResId = 0;
-        if (userPressedTrue == answerIsTrue) {
-            messageResId = R.string.correct_toast;
+        if (mIsCheater) {
+            messageResId = R.string.judgment_toast;
         } else {
-            messageResId = R.string.incorrect_toast;
+            if (userPressedTrue == answerIsTrue) {
+                messageResId = R.string.correct_toast;
+            } else {
+                messageResId = R.string.incorrect_toast;
+            }
         }
+
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
     }
 
     private void update_question() { //display text (in TextView) which find by textResId in array
@@ -44,6 +54,19 @@ public class QuizActivity extends AppCompatActivity {
         } catch (ArrayIndexOutOfBoundsException e) { //when try tap on PrevButton on first question
             e.printStackTrace();
             Toast.makeText(this, "No questions before!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_CODE_CHEAT) {
+            if (data == null) {
+                return;
+            }
+            mIsCheater = CheatActivity.wasAnswerShown(data);
         }
     }
 
@@ -97,6 +120,9 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //start CheatActivity
+                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+                Intent i = CheatActivity.newIntent(QuizActivity.this, answerIsTrue);
+                startActivityForResult(i, REQUEST_CODE_CHEAT);
             }
         });
 
