@@ -13,11 +13,7 @@ import android.widget.Toast;
 public class QuizActivity extends AppCompatActivity {
 
     private TextView mQuestionTextView; //create fields
-    private Button mTrueButton;
-    private Button mFalseButton;
-    private Button mNextButton;
-    private Button mPrevButton;
-    private Question[] mQuestionBank = new Question[]{
+    private final Question[] mQuestionBank = new Question[]{
             new Question(R.string.q_oceans, true),
             new Question(R.string.q_mideast, false),
             new Question(R.string.q_africa, false),
@@ -28,7 +24,6 @@ public class QuizActivity extends AppCompatActivity {
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
     private static final String KEY_IS_CHEATER = "is_cheater";
-    private Button mCheatButton;
     private static final int REQUEST_CODE_CHEAT = 0;
     private boolean mIsCheater;
 
@@ -77,12 +72,12 @@ public class QuizActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_quiz);
 
-        mTrueButton = (Button) findViewById(R.id.true_button); //init and find objects
-        mFalseButton = (Button) findViewById(R.id.false_button);
-        mNextButton = (Button) findViewById(R.id.next_button);
-        mPrevButton = (Button) findViewById(R.id.prev_button);
+        Button mTrueButton = (Button) findViewById(R.id.true_button);
+        Button mFalseButton = (Button) findViewById(R.id.false_button);
+        Button mNextButton = (Button) findViewById(R.id.next_button);
+        Button mPrevButton = (Button) findViewById(R.id.prev_button);
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
-        mCheatButton = (Button) findViewById(R.id.cheat_button);
+        Button mCheatButton = (Button) findViewById(R.id.cheat_button);
 
         mTrueButton.setOnClickListener(new View.OnClickListener() { //set listeners
             @Override
