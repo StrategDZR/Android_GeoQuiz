@@ -74,8 +74,8 @@ public class CheatActivity extends AppCompatActivity {
                 }
             }
         });
-        if (answer != null) {
-            mAnswerTextView.setText(answer);
+        if (savedInstanceState != null) {
+            answer = savedInstanceState.getString("answer");
         }
 
     }
@@ -91,13 +91,6 @@ public class CheatActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         Log.i(TAG, "onSaveInstanceState");
         outState.putString("answer", answer);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        Log.i(TAG, "onRestoreInstanceState");
-        answer = savedInstanceState.getString("answer");
     }
 
     @Override
